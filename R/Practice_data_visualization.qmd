@@ -12,6 +12,7 @@ editor: visual
 library(here)
 library(tidyverse)
 library(readr)
+library(scales)
 
 #Relative vs. Absolute filepaths
 DepData<-read.csv('C:\\Users\\anne.simonis\\Documents\\GitHub\\BIOL708\\data\\DeploymentMetadata.csv')
@@ -36,7 +37,31 @@ mass <- read.csv("https://raw.githubusercontent.com/OHI-Science/data-science-tra
 
 
 
-
 #Make some plots
-ggplot(ca) +geom_point(aes(x=year,y=visitors))
+ggplot(ca) +geom_point(aes(x=year,y=visitors,color=park_name))+
+  labs(y='Visitation',title='National Park Visitors')+
+  theme_minimal()+
+  theme(legend.title=element_blank())
+
+
+#Create a new plot for SE parks showing scatterplot of visitors to each park by state
+ggplot(se)+ geom_point(aes(x=year,y=visitors,color=state))+
+  labs(y='Visitation',title='Southeast United States National Park Visitors')+theme(axis.text.x = element_text(angle = 45, size=8))
+
+
+ggplot(se)+geom_point(aes(x=year, y=visitors,color=state))+
+  facet_wrap(~state,scales='free')+
+  xlim(c(1975,1990))+scale_y_continuous(labels = label_comma())
+
+#Create a box plot for SE parks 
+ggplot(se) + geom_boxplot(aes(x=park_name,y=visitors))+
+  theme(axis.text.x = element_text(size=3))
+
+
+#Show a line for visitors at SE parks over time
+ggplot(se)+ geom_line(aes(x=year,y=visitors,color=park_name))+
+  geom_point(aes(x=year,y=visitors,color=park_name))+
+  geom_smooth(aes(x=year,y=visitors,color=park_name, fill=park_name))
+
+
 ```
