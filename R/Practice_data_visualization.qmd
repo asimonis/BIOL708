@@ -1,0 +1,42 @@
+---
+title: "BIOL708 Data Visualization"
+author: "Anne Simonis"
+format: html
+editor: visual
+---
+
+## Practicing Data Visualization
+
+```{r}
+#load packages
+library(here)
+library(tidyverse)
+library(readr)
+
+#Relative vs. Absolute filepaths
+DepData<-read.csv('C:\\Users\\anne.simonis\\Documents\\GitHub\\BIOL708\\data\\DeploymentMetadata.csv')
+
+DepData<-read.csv(here('data','DeploymentMetadata.csv'))
+
+#Load National Park data from OHI workshop
+#National Parks in California
+ca <- read.csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/ca.csv") 
+
+#Acadia National Park
+acadia <- read.csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/acadia.csv")
+
+#Southeast US National Parks
+se <- read.csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/se.csv")
+
+#2016 Visitation for all Pacific West National Parks
+visit_16 <- read.csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/visit_16.csv")
+
+#All Nationally designated sites in Massachusetts
+mass <- read.csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/mass.csv")
+
+
+
+
+#Make some plots
+ggplot(ca) +geom_point(aes(x=year,y=visitors))
+```
